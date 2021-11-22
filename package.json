@@ -1,0 +1,24 @@
+{
+  "name": "WalletApp",
+  "version": "1.0.0",
+  "description": "Set of API's for wallet transactions",
+  "author": "Afutu Baron",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cookie-session": "^1.4.0",
+    "crypto": "^1.0.1",
+    "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-validator": "^6.13.0",
+    "http-errors": "~1.6.3",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1"
+  }
+}

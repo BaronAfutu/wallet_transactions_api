@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='./stylesheets/style.css' />
+    <script src="./javascripts/jquery-3.5.1.min.js"></script>
+    <script src="./javascripts/mainJS.js"></script>
+  </head>
+  <style>
+    form div{
+      padding: 5px;
+    }
+    .success{
+      background-color: lightgreen;
+      border: 10px;
+      border-radius: 2px;
+      border-color: green;
+      width: auto;
+      padding: 5px;
+      display: none;
+      text-transform: capitalize;
+      color:green;
+      font-size: 14px;
+    }
+    .error{
+      background-color: rgb(250, 207, 207);
+      border-width: 10px;
+      border-radius: 2px;
+      border-color: red;
+      width: auto;
+      padding: 5px;
+      display: none;
+      text-transform: capitalize;
+      color:red;
+      font-size: 14px;
+    }
+    .walletDetails{
+      color: blue;
+      display: none
+      ;
+    }
+  </style>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    
+    <form action="#" method="post" onsubmit="return verify(this);">
+      <div id="msg" class="success"></div>
+      <div>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" placeholder="Full Name">
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email">
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+      </div>
+      <div>
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" name="confirmPassword" id="confirmPassword">
+      </div>
+      <input type="submit" value="Create Wallet">
+    </form>
+
+    <hr>
+
+    <form action="#" method="post" onsubmit="return getWallet(this);">
+      <div id="msg2" class="success"></div>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" name="email">
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password">
+      </div>
+      <input type="submit" value="Get Wallet Details">
+    </form>
+
+    <div class="walletDetails" >
+      <h3>Wallet details</h3>
+      <p>Name: <span id="showName"></span></p>
+      <p>Email: <span id="showEmail"></span></p>
+      <p>Wallet Number: <span id="showWalletNumber"></span></p>
+      <p>Amount: <span id="showAmount"></span></p>
+      <p>Loan Owed: <span id="showLoan"></span></p>
+    </div>
+
+    <hr>
+
+    <form action="#" method="post" onsubmit="return performTransaction(this);">
+      <div id="msg3" class="success"></div>
+      <div>
+        <label for="amount">Amount</label>
+        <input type="number" name="amount" id="amount">
+      </div>
+      <div>
+        <label for="tType">Password</label>
+        <select name="tType" id="tType">
+          <option value="deposit" >Deposit</option>
+          <option value="withdraw" >Widthdraw</option>
+          <option value="getLoan" >Get Loan</option>
+          <option value="payLoan" >Pay Loan</option>
+        </select>
+      </div>
+      <input type="submit" value="Perform Transaction">
+    </form>
+
+    <hr>
+    <h3>Get Transactions</h3>
+    <form action="#" method="get" onsubmit="return getTransactions(this);">
+      <div id="msg4" class="success"></div>
+      <div>
+        <label for="startDate">Transactions from</label>
+        <input type="date" name="startDate" id="startDate">
+      </div>
+      <div>
+        <label for="stopDate">To</label>
+        <input type="date" name="stopDate" id="stopDate">
+      </div>
+      <div>
+        <label for="type">Transaction Type</label>
+        <select name="type" id="type">
+          <option value="all" selected>All</option>
+          <option value="Debit" >Deposits</option>
+          <option value="Credit" >Credits</option>
+          <option value="Loan Debit" >Loans</option>
+          <option value="Loan Repayment" >Loan Repayments</option>
+        </select>
+      </div>
+      <input type="submit" value="Retrieve Transactions">
+    </form>
+
+    <div id="results">
+      
+    </div>
+  </body>
+</html>

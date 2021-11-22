@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moni Africa</title>
+</head>
+<body>
+    <p>
+        <div id="inset"></div>
+    </p>
+    <button id="btn" type="submit">Decode</button>
+    <p>
+        <div id="results"></div>
+    </p>
+</body>
+
+<script>
+    let entries = [
+        "CS111 20 Fall",
+        "CPEN-401 S 99",
+        "CS 111 Su2018",
+        "CPEN207 12Winter",
+        "CPEN207 012W",
+        "207 12W",
+    ];
+    document.getElementById("inset").innerHTML = `<p>${entries.join('</p><p>')}</p>`;
+    let results = [];
+
+    let clfnc = ()=>{
+
+        let splitEntry=(text)=>{
+            /**
+             * Schemes through text and returns array of 
+             * distinct set of characters and digits
+            */
+            let final=[];
+            let m='';
+            let re = /[a-z]+|[0-9]+/gi;
+            do{
+                m = re.exec(text);
+                if(m)final.push(m[0]);
+            }while(m);
+            return final;
+        }
+
+        let getYear = (text)=>{
+            let schoolStartYear = 1900;
+            let nextYearSuffix = (new Date().getFullYear()%100) + 1;//gets last 2 digits of next year
+            let year = parseInt(text);
+            if(text.length==4)return year;
+            else if(text.length==2){
+                if(year>nextYearSuffix)return 1900+year;
+                else return 2000+year;
+            }
+            else return -1;
+        }
+
+        let getSemester = (text)=>{
+            let semesters = {
+                'Summer':/su/i,
+                'Fall':/f/i,
+                'Spring':/s/i,
+                'Winter':/w/i
+            }
+            for(x in semesters){
+                if(text.match(semesters[x]))return x;
+            }
+            console.log(text);
+        }
+
+        let validate = (finalObject)=>{
+            for(x in finalObject){
+                if(finalObject[x]==-1)return false;
+            }
+            return true;
+        }
+
+        let decode = (element)=>{
+            let splited = splitEntry(element);
+
+            if(splited.length!=4)return JSON.stringify({
+                'error': 'Invalid Entry/Format!!',
+                'status': '405'
+            });
+            let final = {};
+            final['department'] = splited[0];
+            final['course_number'] = splited[1];
+            if(splited[2].match(/[0-9]+/)){
+                final['year'] = getYear(splited[2]);
+                final['semester'] = getSemester(splited[3]);
+            }
+            else{
+                final['year'] = getYear(splited[3]);
+                final['semester'] = getSemester(splited[2]);
+            }
+            
+            return (validate(final))?JSON.stringify(final):JSON.stringify({'error': 'Invalid Entry/Format!!','status': '405'});
+            
+        }
+
+        entries.forEach(element => {
+            results.push(decode(element));
+        });
+        document.getElementById("results").innerHTML = `<p>${results.join('</p><p>')}</p>`;
+    }
+
+    let btn = document.getElementById("btn");
+    btn.addEventListener('click',clfnc);
+    //clfnc();
+</script>
+</html>
