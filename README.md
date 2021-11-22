@@ -1,0 +1,2 @@
+# wallet_transactions_api
+A wallet based approach for handling agent loan disbursement and repayment. The API to meet the following requirements; Agents should have a reserved wallet number Agents can top up their wallets Agents can receive their loans in their wallets Agents can withdraw from their wallets Agents can repay their existing loans from their wallet Agents can retrieve a detailed list of all their wallet transactions
